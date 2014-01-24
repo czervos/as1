@@ -24,6 +24,7 @@ package ca.ualberta.cmput301.as1.czervos_notes;
 public class CounterModel {
 	
 	private int count = 0;
+	private String name;
 	
 	// Constructor
 	
@@ -40,6 +41,15 @@ public class CounterModel {
 		return this.count;
 	}
 	
+	/**
+	 * Returns the name of the counter.
+	 * 
+	 * @return
+	 */
+	public String getCounterName() {
+		return this.name;
+	}
+	
 	// Setters
 	
 	/**
@@ -49,5 +59,14 @@ public class CounterModel {
 	 */
 	public void increment() {
 		this.count++;
+	}
+	
+	/**
+	 * This method sets the name of the counter.
+	 * 
+	 * @param text
+	 */
+	public void setCounterName(String text) {
+		this.name = text;
 	}
 }
