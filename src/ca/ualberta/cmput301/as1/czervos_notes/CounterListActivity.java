@@ -28,11 +28,15 @@ import android.view.MenuItem;
  * @author Costa Zervos
  */
 public class CounterListActivity extends Activity {
+	
+	private CounterListModel counterList;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_counter_list);
+		counterList = new CounterListModel();
+		// Creates the list containing the counters
 	}
 
 	@Override
@@ -40,6 +44,11 @@ public class CounterListActivity extends Activity {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.counter_list, menu);
 		return true;
+	}
+	
+	@Override
+	protected void onResume() {
+		
 	}
 	
 	/**

@@ -52,4 +52,12 @@ public class CounterListModel {
 	public void setCounterList(ArrayList<CounterModel> counterList) {
 		CounterListModel.counterList = counterList;
 	}
+	
+	/**
+	 * Adds a counter to the counter list
+	 * @param counter
+	 */
+	public void addCounter(CounterModel counter) {
+		counterList.add(counter);
+	}
 }
