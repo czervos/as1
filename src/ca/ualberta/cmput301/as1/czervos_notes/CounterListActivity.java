@@ -48,7 +48,20 @@ public class CounterListActivity extends Activity {
 	
 	@Override
 	protected void onResume() {
-		
+		super.onResume();
+		CounterModel newCounter;
+		// Defines a new counter
+		Intent intent = this.getIntent();
+		// Gets the intent
+		Bundle bundle = intent.getExtras();
+		// Gets the bundle form the intent
+		if (bundle != null) {
+			// If bundle is not empty
+			newCounter = (CounterModel) bundle.getSerializable("newCounter");
+			// Gets the new counter from the bundle
+			counterList.addCounter(newCounter);
+			// Adds the counter to the list
+		}
 	}
 	
 	/**

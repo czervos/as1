@@ -29,7 +29,10 @@ public class CounterListModel {
 	
 	// Constructor
 	
-	public CounterListModel() {}
+	public CounterListModel() {
+		super();
+		counterList = new ArrayList<CounterModel>();
+	}
 	
 	// Getters
 	
@@ -55,6 +58,7 @@ public class CounterListModel {
 	
 	/**
 	 * Adds a counter to the counter list
+	 * 
 	 * @param counter
 	 */
 	public void addCounter(CounterModel counter) {
