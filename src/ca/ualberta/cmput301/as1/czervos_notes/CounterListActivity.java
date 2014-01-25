@@ -16,11 +16,15 @@
 
 package ca.ualberta.cmput301.as1.czervos_notes;
 
+import java.util.ArrayList;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 /**
  * The main activity of the application.
@@ -30,6 +34,8 @@ import android.view.MenuItem;
 public class CounterListActivity extends Activity {
 	
 	private CounterListModel counterList;
+	private ListView counterListView;
+	private ArrayAdapter<String> adapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +57,8 @@ public class CounterListActivity extends Activity {
 		super.onResume();
 		CounterModel newCounter;
 		// Defines a new counter
+		
+		/* Updates counter list if needed */
 		Intent intent = this.getIntent();
 		// Gets the intent
 		Bundle bundle = intent.getExtras();
@@ -62,6 +70,23 @@ public class CounterListActivity extends Activity {
 			counterList.addCounter(newCounter);
 			// Adds the counter to the list
 		}
+		
+		/* Displays List of Counters */
+		counterListView = (ListView) findViewById(R.id.counterList);
+		// Associates variable with listview resource (view)
+		ArrayList<CounterModel> tempCounterList = new ArrayList<CounterModel>();
+		tempCounterList = counterList.getCounterList();
+		// Retrieves list of counters from the model
+		ArrayList<String> counterNameList = new ArrayList<String>();
+		for (int i=0; i<tempCounterList.size(); i++ ) {
+			counterNameList.add(tempCounterList.get(i).getCounterName());
+		}
+		// Puts names of counters in array to be retrieved by adapter
+		adapter = new ArrayAdapter<String>(this,R.layout.list_item,
+				counterNameList);
+		counterListView.setAdapter(adapter);
+		// Adapter sets up and displays listview
+		
 	}
 	
 	/**
