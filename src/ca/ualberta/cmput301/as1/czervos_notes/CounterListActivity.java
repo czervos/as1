@@ -18,6 +18,7 @@ package ca.ualberta.cmput301.as1.czervos_notes;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -53,8 +54,10 @@ public class CounterListActivity extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 	    // Handle presses on the action bar items
 	    switch (item.getItemId()) {
+	    	// Handles pressing add counter button
 	        case R.id.counter_add:
-	            // TODO add counter functionality
+	            Intent intent = new Intent(this, AddCounterActivity.class);
+	            startActivity(intent);
 	            return true;
 	        case R.id.action_settings:
 	            return true;
