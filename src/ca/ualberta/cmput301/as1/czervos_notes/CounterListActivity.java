@@ -23,7 +23,7 @@ import android.view.Menu;
 /**
  * The main activity of the application.
  * 
- * @author Costa
+ * @author Costa Zervos
  *
  */
 public class CounterListActivity extends Activity {

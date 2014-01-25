@@ -1,5 +1,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
-
+    <!-- Add Counter Button - Always show as action button -->
+    <item android:id="@+id/counter_add"
+        android:icon="@drawable/ic_action_new"
+        android:title="@string/counter_add"
+        android:showAsAction="always" />
+    <!-- Settings - Always show in Overflow -->
     <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"
