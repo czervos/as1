@@ -9,8 +9,23 @@
     tools:context=".AddCounterActivity" >
 
     <TextView
+        android:id="@+id/textview_enter_counter_name"
+        android:layout_centerHorizontal="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
-
+        android:text="@string/enter_counter_name" />
+    <EditText
+        android:id="@+id/enter_counter_name"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/enter_name"
+        android:layout_below="@id/textview_enter_counter_name" />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/counter_add"
+        android:layout_below="@id/enter_counter_name"
+        android:layout_centerHorizontal="true"
+        android:onClick="createCounter"/>"
+        
 </RelativeLayout>

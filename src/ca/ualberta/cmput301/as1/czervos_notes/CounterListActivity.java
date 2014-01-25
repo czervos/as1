@@ -25,7 +25,6 @@ import android.view.MenuItem;
  * The main activity of the application.
  * 
  * @author Costa Zervos
- *
  */
 public class CounterListActivity extends Activity {
 
