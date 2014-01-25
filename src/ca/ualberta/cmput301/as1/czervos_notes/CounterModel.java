@@ -28,7 +28,9 @@ public class CounterModel {
 	
 	// Constructor
 	
-	public CounterModel() {}
+	public CounterModel(String text) {
+		this.name = text;
+	}
 	
 	// Getters
 	

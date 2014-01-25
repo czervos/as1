@@ -21,6 +21,7 @@ import android.app.Activity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.support.v4.app.NavUtils;
 import android.annotation.TargetApi;
 import android.os.Build;
@@ -74,8 +75,17 @@ public class AddCounterActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 	
+	/**
+	 * Called when the user clicks on the add a counter button.
+	 * 
+	 * @param view
+	 */
 	public void createCounter(View view) {
-		// TODO implement add button
+		EditText editText = (EditText) findViewById(R.id.enter_counter_name);
+		// Finds EditText view and gets its ID
+		String counterName = editText.getText().toString();
+		// Using EditText view's id, grabs the text & converts to string
+		
 	}
 
 }

@@ -43,7 +43,8 @@ public class CounterListActivity extends Activity {
 	}
 	
 	/**
-	 * Responds to action button presses
+	 * Responds to action button presses.
+	 * 
 	 * CODE REUSE:
 	 * This code was modified from
 	 * URL: http://developer.android.com/training/basics/actionbar/adding-buttons.html#Respond
