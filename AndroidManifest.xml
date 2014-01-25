@@ -22,6 +22,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="ca.ualberta.cmput301.as1.czervos_notes.AddCounterActivity"
+            android:label="@string/title_activity_add_counter"
+            android:parentActivityName="ca.ualberta.cmput301.as1.czervos_notes.CounterListActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="ca.ualberta.cmput301.as1.czervos_notes.CounterListActivity" />
+        </activity>
     </application>
 
 </manifest>
