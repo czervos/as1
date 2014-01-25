@@ -24,6 +24,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.support.v4.app.NavUtils;
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.os.Build;
 
 /**
@@ -81,11 +82,23 @@ public class AddCounterActivity extends Activity {
 	 * @param view
 	 */
 	public void createCounter(View view) {
+		CounterModel newCounter;
 		EditText editText = (EditText) findViewById(R.id.enter_counter_name);
 		// Finds EditText view and gets its ID
 		String counterName = editText.getText().toString();
 		// Using EditText view's id, grabs the text & converts to string
-		
+		newCounter = new CounterModel(counterName);
+		// Constructs new counter
+		Intent intent = new Intent(this, CounterListActivity.class);
+		// Creates intent to return to main activity
+		Bundle bundle = new Bundle();
+		// Defines a bundle to pass to main activity
+		bundle.putSerializable("newCounter",newCounter);
+		// Bundles newly created counter
+		intent.putExtras(bundle);
+		// Puts bundle in intent
+		startActivity(intent);
+		// Returns to main activity		
 	}
 
 }

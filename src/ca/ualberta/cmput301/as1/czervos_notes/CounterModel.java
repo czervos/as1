@@ -16,15 +16,18 @@
 
 package ca.ualberta.cmput301.as1.czervos_notes;
 
+import java.io.Serializable;
+
 /**
  * This class acts as the model for the counters.
  * 
  * @author Costa Zervos
  */
-public class CounterModel {
+public class CounterModel implements Serializable{
 	
 	private int count = 0;
 	private String name;
+	private static final long serialVersionUID = 1L;
 	
 	// Constructor
 	
