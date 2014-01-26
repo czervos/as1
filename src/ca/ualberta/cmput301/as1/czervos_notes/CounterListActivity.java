@@ -17,13 +17,10 @@
 package ca.ualberta.cmput301.as1.czervos_notes;
 
 import java.util.ArrayList;
-import java.util.Collection;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.renderscript.Type;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
