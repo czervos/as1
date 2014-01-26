@@ -7,6 +7,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
+        android:textSize="40sp"
         android:text="Name" />
     
     <TextView
@@ -14,6 +15,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Count"
+        android:textSize="40sp"
         android:layout_alignParentRight="true" />
 
 </RelativeLayout>
