@@ -22,6 +22,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -40,6 +42,7 @@ public class CounterListActivity extends Activity {
 	
 	private CounterListModel counterList;
 	private ListView counterListView;
+	private String[] menuItems = {"Rename", "Reset", "Delete"};
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +55,35 @@ public class CounterListActivity extends Activity {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.counter_list, menu);
 		return true;
+	}
+	
+	/**
+	 * Creates context menu for longclicks.
+	 * 
+	 * CODE REUSE:
+	 * This code was modified from
+	 * Author: Mike Plate
+	 * URL: http://www.mikeplate.com/2010/01/21/show-a-context-menu-for-long-clicks-in-an-android-listview/
+	 * Date: Jan. 26, 2014
+	 * License: No license
+	 */
+	@Override
+	public void onCreateContextMenu(ContextMenu menu, View view, 
+			ContextMenuInfo menuInfo) {
+		if (view.getId() == R.id.counterList) {
+			// If the view that trigger the longclick is the counter listview
+			AdapterView.AdapterContextMenuInfo info = (AdapterView
+					.AdapterContextMenuInfo) menuInfo;
+			// Casts listview item selected info into format readable by adapter
+			ArrayList<CounterModel> tempList = counterList.getCounterList();
+			// Gets counter list from counter list model
+			menu.setHeaderTitle(tempList.get(info.position).getCounterName());
+			// Grabs name of counter selected using the info
+			for (int i = 0; i < menuItems.length; i++) {
+				menu.add(Menu.NONE, i, i, menuItems[i]);
+				// displays the context menu items
+				}
+		}
 	}
 	
 	@Override
@@ -91,8 +123,13 @@ public class CounterListActivity extends Activity {
 		// Initializes custom adapter (utilizing two textviews)
 		counterListView.setAdapter(customAdapter);
 		// Draws listview
+		registerForContextMenu(counterListView);
+		// Enables listview to register longclicks for context menu
 		
-		/* Listens for listview clicks */
+		/**
+		 * Listens for listview clicks.
+		 */
+
 		counterListView.setOnItemClickListener(new AdapterView.
 				OnItemClickListener() {
 			@Override
