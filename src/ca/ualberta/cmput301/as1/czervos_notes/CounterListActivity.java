@@ -23,8 +23,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ArrayAdapter;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import com.google.gson.Gson;
@@ -39,7 +37,6 @@ public class CounterListActivity extends Activity {
 	
 	private CounterListModel counterList;
 	private ListView counterListView;
-	private ArrayAdapter<String> adapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -90,24 +87,9 @@ public class CounterListActivity extends Activity {
 		counterListView = (ListView) findViewById(R.id.counterList);
 		// Associates variable with listview resource (view)
 		CustomAdapter customAdapter = new CustomAdapter(this,counterList);
+		// Initializes custom adapter (utilizing two textviews)
 		counterListView.setAdapter(customAdapter);
-		
-		/* OLD
-		counterListView = (ListView) findViewById(R.id.counterList);
-		// Associates variable with listview resource (view)
-		ArrayList<CounterModel> tempCounterList = new ArrayList<CounterModel>();
-		tempCounterList = counterList.getCounterList();
-		// Retrieves list of counters from the model
-		ArrayList<String> counterNameList = new ArrayList<String>();
-		for (int i=0; i<tempCounterList.size(); i++ ) {
-			counterNameList.add(tempCounterList.get(i).getCounterName());
-		}
-		// Puts names of counters in array to be retrieved by adapter
-		adapter = new ArrayAdapter<String>(this,R.layout.list_item,
-				counterNameList);
-		counterListView.setAdapter(adapter);
-		// Adapter sets up and displays listview
-		 */
+		// Draws listview
 	}
 	
 	/**
