@@ -24,6 +24,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import com.google.gson.Gson;
@@ -88,6 +89,12 @@ public class CounterListActivity extends Activity {
 		/* Displays List of Counters */
 		counterListView = (ListView) findViewById(R.id.counterList);
 		// Associates variable with listview resource (view)
+		CustomAdapter customAdapter = new CustomAdapter(this,counterList);
+		counterListView.setAdapter(customAdapter);
+		
+		/* OLD
+		counterListView = (ListView) findViewById(R.id.counterList);
+		// Associates variable with listview resource (view)
 		ArrayList<CounterModel> tempCounterList = new ArrayList<CounterModel>();
 		tempCounterList = counterList.getCounterList();
 		// Retrieves list of counters from the model
@@ -100,7 +107,7 @@ public class CounterListActivity extends Activity {
 				counterNameList);
 		counterListView.setAdapter(adapter);
 		// Adapter sets up and displays listview
-		
+		 */
 	}
 	
 	/**

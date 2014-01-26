@@ -22,6 +22,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 /**
@@ -36,7 +37,7 @@ import android.widget.TextView;
  * License: Creative Commons 3.0 Attribution-ShareAlike (http://creativecommons.org/licenses/by-sa/3.0/)
  */
 
-public class CustomAdapter {
+public class CustomAdapter extends BaseAdapter{
 	
 	private LayoutInflater inflater;
 	private CounterListModel counterListModel;
@@ -81,7 +82,7 @@ public class CustomAdapter {
 		}
 		
 		holder.textView1.setText(counters.get(position).getCounterName());
-		holder.textView2.setText(counters.get(position).getCount());
+		holder.textView2.setText(Integer.toString(counters.get(position).getCount()));
 		return convertView;
    }
 }
