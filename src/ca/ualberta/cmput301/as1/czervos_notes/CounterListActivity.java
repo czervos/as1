@@ -17,12 +17,15 @@
 package ca.ualberta.cmput301.as1.czervos_notes;
 
 import java.util.ArrayList;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.google.gson.Gson;
@@ -42,8 +45,6 @@ public class CounterListActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_counter_list);
-		//counterList = new CounterListModel();
-		// Creates the list containing the counters
 	}
 
 	@Override
@@ -86,10 +87,31 @@ public class CounterListActivity extends Activity {
 		/* Displays List of Counters */
 		counterListView = (ListView) findViewById(R.id.counterList);
 		// Associates variable with listview resource (view)
-		CustomAdapter customAdapter = new CustomAdapter(this,counterList);
+		final CustomAdapter customAdapter = new CustomAdapter(this,counterList);
 		// Initializes custom adapter (utilizing two textviews)
 		counterListView.setAdapter(customAdapter);
 		// Draws listview
+		
+		/* Listens for listview clicks */
+		counterListView.setOnItemClickListener(new AdapterView.
+				OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, 
+					int position, long id) {
+				
+				ArrayList<CounterModel> tempList = counterList.getCounterList();
+				// Gets list of counters
+				tempList.get(position).increment();
+				// Increments clicked counter by using position of list item
+				// clicked which = array position
+				counterList.setCounterList(tempList);
+				// Sets the CounterListModel to the updated list
+				saveCounterList(counterList);
+				// Saves the list
+				customAdapter.notifyDataSetChanged();
+				// Re-draws the list
+			}
+		});
 	}
 	
 	/**
