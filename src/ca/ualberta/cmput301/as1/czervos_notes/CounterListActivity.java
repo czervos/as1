@@ -42,7 +42,8 @@ public class CounterListActivity extends Activity {
 	
 	private CounterListModel counterList;
 	private ListView counterListView;
-	private String[] menuItems = {"Rename", "Reset", "Delete"};
+	private String[] menuItems = {"Stats", "Rename", "Reset", "Delete"};
+	private CustomAdapter customAdapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +71,8 @@ public class CounterListActivity extends Activity {
 	@Override
 	public void onCreateContextMenu(ContextMenu menu, View view, 
 			ContextMenuInfo menuInfo) {
+		// NOTE: needed to enable listview to register longclicks - code in
+		// onResume()
 		if (view.getId() == R.id.counterList) {
 			// If the view that trigger the longclick is the counter listview
 			AdapterView.AdapterContextMenuInfo info = (AdapterView
@@ -119,7 +122,7 @@ public class CounterListActivity extends Activity {
 		/* Displays List of Counters */
 		counterListView = (ListView) findViewById(R.id.counterList);
 		// Associates variable with listview resource (view)
-		final CustomAdapter customAdapter = new CustomAdapter(this,counterList);
+		customAdapter = new CustomAdapter(this,counterList);
 		// Initializes custom adapter (utilizing two textviews)
 		counterListView.setAdapter(customAdapter);
 		// Draws listview
@@ -129,7 +132,6 @@ public class CounterListActivity extends Activity {
 		/**
 		 * Listens for listview clicks.
 		 */
-
 		counterListView.setOnItemClickListener(new AdapterView.
 				OnItemClickListener() {
 			@Override
@@ -232,5 +234,39 @@ public class CounterListActivity extends Activity {
 		// sets counter list in model to the loaded list
 		return counterListModel;		
 	}
-
+	
+	/**
+	 * Responds to context menu longclicks.
+	 * 
+	 * CODE REUSE:
+	 * This code was modified from
+	 * Author: Mike Plate
+	 * URL: http://www.mikeplate.com/2010/01/21/show-a-context-menu-for-long-clicks-in-an-android-listview/
+	 * Date: Jan. 26, 2014
+	 * License: No license
+	 */
+	@Override
+	public boolean onContextItemSelected(MenuItem item) {
+		AdapterView.AdapterContextMenuInfo info = (AdapterView
+				.AdapterContextMenuInfo)item.getMenuInfo();
+		// Casts contextmenu item selected info into format readable by adapter
+		int menuItemIndex = item.getItemId();
+		// Gets id of context menu item selected
+		ArrayList<CounterModel> tempList = counterList.getCounterList();
+		// Gets list of counters
+		
+		switch(menuItemIndex) {
+		case 3:
+			// Remove
+			tempList.remove(info.position);
+			break;
+		}
+		counterList.setCounterList(tempList);
+		// Sets the CounterListModel to the updated list 
+		saveCounterList(counterList);
+		// Saves list
+		customAdapter.notifyDataSetChanged();
+		// Updates adapter
+		return true;
+	}
 }
