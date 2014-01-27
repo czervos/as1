@@ -256,6 +256,10 @@ public class CounterListActivity extends Activity {
 		// Gets list of counters
 		
 		switch(menuItemIndex) {
+		case 2:
+			// Reset
+			tempList.get(info.position).zero();
+			break;
 		case 3:
 			// Remove
 			tempList.remove(info.position);

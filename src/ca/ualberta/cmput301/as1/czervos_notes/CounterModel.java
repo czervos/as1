@@ -74,4 +74,11 @@ public class CounterModel implements Serializable{
 	public void setCounterName(String text) {
 		this.name = text;
 	}
+	
+	/**
+	 * This method zeros the counter.
+	 */
+	public void zero() {
+		this.count = 0;
+	}
 }
