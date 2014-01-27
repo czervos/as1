@@ -44,6 +44,7 @@ public class CounterListActivity extends Activity {
 	private ListView counterListView;
 	private String[] menuItems = {"Stats", "Rename", "Reset", "Delete"};
 	private CustomAdapter customAdapter;
+	private static int renamePosition = 0;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -93,6 +94,7 @@ public class CounterListActivity extends Activity {
 	protected void onResume() {
 		super.onResume();
 		CounterModel newCounter;
+		String newName;
 		// Defines a new counter
 		
 		counterList = loadCounterList();
@@ -101,7 +103,7 @@ public class CounterListActivity extends Activity {
 			counterList = new CounterListModel();
 		}
 		
-		/* Updates counter list if needed */
+		/* Retrieves Intents and Bundles */
 		Intent intent = this.getIntent();
 		// Gets the intent
 		Bundle bundle = intent.getExtras();
@@ -110,9 +112,21 @@ public class CounterListActivity extends Activity {
 			// If bundle is not empty
 			newCounter = (CounterModel) bundle.getSerializable("newCounter");
 			// Gets the new counter from the bundle
-			counterList.addCounter(newCounter);
-			// Adds the counter to the list
-			
+			if (newCounter == null) {
+				// If new counter is null, bundle is a rename string
+				newName = (String) bundle.getSerializable("renameCounter");
+				// Retrieves new name
+				ArrayList<CounterModel> tempList = counterList.getCounterList();
+				// Gets list of counters
+				tempList.get(renamePosition).setCounterName(newName);
+				// Changes the name of the counter
+				counterList.setCounterList(tempList);
+				// Sets counter list model to the updated set of counters
+			}
+			else {
+				counterList.addCounter(newCounter);
+				// Adds the counter to the list
+			}
 			saveCounterList(counterList);
 			// Saves the list
 			intent.removeExtra("newCounter");
@@ -266,6 +280,14 @@ public class CounterListActivity extends Activity {
 		// Gets list of counters
 		
 		switch(menuItemIndex) {
+		case 1:
+			// Rename
+			renamePosition = info.position;
+			// Remembers position of counter being renamed
+			Intent intent = new Intent(this, RenameCounterActivity.class);
+			startActivity(intent);
+			// Launches rename counter activity
+			break;
 		case 2:
 			// Reset
 			tempList.get(info.position).zero();

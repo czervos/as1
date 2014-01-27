@@ -8,5 +8,7 @@
     <string name="enter_counter_name">Enter Counter Name</string>
     <string name="enter_name">Enter name</string>
     <string name="counter_sort">Sort Counters Descending</string>
+    <string name="title_activity_rename_counter">RenameCounterActivity</string>
+    <string name="counter_rename">Rename Counter</string>
 
 </resources>
