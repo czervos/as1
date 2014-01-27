@@ -122,15 +122,18 @@ public class CounterListActivity extends Activity {
 				// Changes the name of the counter
 				counterList.setCounterList(tempList);
 				// Sets counter list model to the updated set of counters
+				intent.removeExtra("renameCounter");
+				// Removes the bundle when done with it
 			}
 			else {
 				counterList.addCounter(newCounter);
 				// Adds the counter to the list
+				intent.removeExtra("newCounter");
+				// Removes the bundle when done with it
 			}
 			saveCounterList(counterList);
 			// Saves the list
-			intent.removeExtra("newCounter");
-			// Removes the bundle when done with it
+
 		}
 		
 		/* Displays List of Counters */
