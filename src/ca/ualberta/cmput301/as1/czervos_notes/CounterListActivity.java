@@ -166,11 +166,21 @@ public class CounterListActivity extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 	    // Handle presses on the action bar items
 	    switch (item.getItemId()) {
-	    	// Handles pressing add counter button
 	        case R.id.counter_add:
+	        	// Handles pressing add counter button
 	            Intent intent = new Intent(this, AddCounterActivity.class);
 	            startActivity(intent);
 	            return true;
+	        case R.id.counter_sort:
+	        	// Handles counter sort button press
+	        	ArrayList<CounterModel> tempList = counterList.getCounterList();
+	        	tempList = sort(tempList);
+	        	counterList.setCounterList(tempList);
+	    		saveCounterList(counterList);
+	    		// Saves list
+	    		customAdapter.notifyDataSetChanged();
+	    		// Updates adapter
+	        	return true;
 	        case R.id.action_settings:
 	            return true;
 	        default:
@@ -272,5 +282,30 @@ public class CounterListActivity extends Activity {
 		customAdapter.notifyDataSetChanged();
 		// Updates adapter
 		return true;
+	}
+	
+	/**
+	 * Selection sort algorithm.
+	 * 
+	 * @param array
+	 * @return
+	 */
+	public ArrayList<CounterModel> sort(ArrayList<CounterModel> array) {
+		
+		for (int i=0; i < array.size()-1; i++) {
+			CounterModel maxCount = array.get(i);
+			int maxIndex = i;
+			for (int j=i+1; j < array.size(); j++) {
+				if (array.get(j).getCount() > maxCount.getCount()) {
+					maxCount = array.get(j);
+					maxIndex = j;
+				}			
+			}
+			CounterModel tempCount;
+			tempCount = array.get(i);
+			array.set(i,maxCount);
+			array.set(maxIndex,tempCount);	
+		}
+		return array;
 	}
 }

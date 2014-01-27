@@ -4,6 +4,11 @@
         android:icon="@drawable/ic_action_new"
         android:title="@string/counter_add"
         android:showAsAction="always" />
+    <!-- Sort Counters Button -->
+    <item android:id="@+id/counter_sort"
+        android:icon="@drawable/ic_action_sort_by_size"
+        android:title="@string/counter_sort"
+        android:showAsAction="ifRoom" />
     <!-- Settings - Always show in Overflow -->
     <item
         android:id="@+id/action_settings"
