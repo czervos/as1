@@ -17,6 +17,8 @@
 package ca.ualberta.cmput301.as1.czervos_notes;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Calendar;
 
 /**
  * This class acts as the model for the counters.
@@ -27,6 +29,7 @@ public class CounterModel implements Serializable{
 	
 	private int count = 0;
 	private String name;
+	private ArrayList<Calendar> timeList = new ArrayList<Calendar>();
 	private static final long serialVersionUID = 1L;
 	
 	// Constructor
@@ -58,12 +61,13 @@ public class CounterModel implements Serializable{
 	// Setters
 	
 	/**
-	 * This method increments the counter.
+	 * This method increments the counter and adds a timestamp to the timelist.
 	 * 
 	 * @param count
 	 */
 	public void increment() {
 		this.count++;
+		this.timeList.add(Calendar.getInstance());
 	}
 	
 	/**
