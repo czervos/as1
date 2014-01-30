@@ -283,13 +283,20 @@ public class CounterListActivity extends Activity {
 		// Gets list of counters
 		
 		switch(menuItemIndex) {
+		case 0:
+			// Stats
+			Intent intent1 = new Intent(this, StatsActivity.class);
+			Bundle bundle = new Bundle();
+			bundle.putSerializable("CounterStats", tempList.get(info.position));
+			intent1.putExtras(bundle);
+			startActivity(intent1);
+			break;
 		case 1:
 			// Rename
 			renamePosition = info.position;
 			// Remembers position of counter being renamed
-			Intent intent = new Intent(this, RenameCounterActivity.class);
-			startActivity(intent);
-			// Launches rename counter activity
+			Intent intent2 = new Intent(this, RenameCounterActivity.class);
+			startActivity(intent2);
 			break;
 		case 2:
 			// Reset

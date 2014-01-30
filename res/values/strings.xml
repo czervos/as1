@@ -10,5 +10,7 @@
     <string name="counter_sort">Sort Counters Descending</string>
     <string name="title_activity_rename_counter">RenameCounterActivity</string>
     <string name="counter_rename">Rename Counter</string>
+    <string name="title_activity_stats">StatsActivity</string>
+    <string name="hello_world">Hello world!</string>
 
 </resources>

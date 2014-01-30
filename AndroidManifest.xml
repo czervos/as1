@@ -38,6 +38,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="ca.ualberta.cmput301.as1.czervos_notes.CounterListActivity" />
         </activity>
+        <activity
+            android:name="ca.ualberta.cmput301.as1.czervos_notes.StatsActivity"
+            android:label="@string/title_activity_stats"
+            android:parentActivityName="ca.ualberta.cmput301.as1.czervos_notes.CounterListActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="ca.ualberta.cmput301.as1.czervos_notes.CounterListActivity" />
+        </activity>
     </application>
 
 </manifest>
