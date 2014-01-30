@@ -58,6 +58,15 @@ public class CounterModel implements Serializable{
 		return this.name;
 	}
 	
+	/**
+	 * Returns the list of timestamps.
+	 * 
+	 * @return
+	 */
+	public ArrayList<Calendar> getTimeList() {
+		return timeList;
+	}
+	
 	// Setters
 	
 	/**

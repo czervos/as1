@@ -16,15 +16,22 @@
 
 package ca.ualberta.cmput301.as1.czervos_notes;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v4.app.NavUtils;
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.os.Build;
 
 public class StatsActivity extends Activity {
+	private CounterModel counter;
+	private ArrayList<Calendar> timeList = new ArrayList<Calendar>();
+	private ArrayList<String> hourList = new ArrayList<String>();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +39,11 @@ public class StatsActivity extends Activity {
 		setContentView(R.layout.activity_stats);
 		// Show the Up button in the action bar.
 		setupActionBar();
+		
+		Intent intent = this.getIntent();
+		Bundle bundle = intent.getExtras();
+		counter = (CounterModel) bundle.getSerializable("CounterStats");
+		timeList = counter.getTimeList();
 		
 		
 	}
@@ -69,5 +81,9 @@ public class StatsActivity extends Activity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
+	
+	//private ArrayList<String> getHourCounts(ArrayList<Calendar> timeList) {
+		
+	//}
 
 }
