@@ -16,13 +16,19 @@
 
 package ca.ualberta.cmput301.as1.czervos_notes;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.support.v4.app.NavUtils;
 import android.annotation.TargetApi;
 import android.content.Intent;
@@ -32,6 +38,16 @@ public class StatsActivity extends Activity {
 	private CounterModel counter;
 	private ArrayList<Calendar> timeList = new ArrayList<Calendar>();
 	private ArrayList<String> hourList = new ArrayList<String>();
+	private String format;
+	private Map monthHash;
+	private ArrayAdapter<String> adapter;
+	private ArrayList<String> stats = new ArrayList<String>();
+	private ListView statsListView;
+	private ArrayList<LogModel> monthList = new ArrayList<LogModel>();
+	private int lengthTime;
+	private int x;
+	private int y;
+	private LogModel tempLog;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -40,10 +56,38 @@ public class StatsActivity extends Activity {
 		// Show the Up button in the action bar.
 		setupActionBar();
 		
+		/* Receives bundle */
 		Intent intent = this.getIntent();
 		Bundle bundle = intent.getExtras();
 		counter = (CounterModel) bundle.getSerializable("CounterStats");
 		timeList = counter.getTimeList();
+		
+		/* Month Counters */
+		lengthTime = timeList.size();
+		for (x=0; x < lengthTime; x++) {
+			tempLog = new LogModel(timeList.get(x));
+			for (y=0; y < monthList.size(); y++) {
+				if (monthList.get(y).getMonth().equals(tempLog.getMonth())) {
+					monthList.get(y).increment();
+					tempLog = null;
+					break;
+				}
+			}
+			if (tempLog != null) {
+				monthList.add(tempLog);
+			}
+		}
+		
+		/* Add months to the stats list */
+		stats.add("Months");
+		for (x=0; x < monthList.size(); x++) {
+			stats.add(monthList.get(x).getMonth());
+		}
+
+		/* Display Stats List */
+		statsListView = (ListView) findViewById(R.id.listview_stats_list);
+		adapter = new ArrayAdapter(this, R.layout.stats_list_item, stats);
+		statsListView.setAdapter(adapter);
 		
 		
 	}
@@ -81,9 +125,22 @@ public class StatsActivity extends Activity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
-	
-	//private ArrayList<String> getHourCounts(ArrayList<Calendar> timeList) {
-		
-	//}
-
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
