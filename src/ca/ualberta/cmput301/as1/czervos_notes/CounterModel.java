@@ -33,7 +33,7 @@ public class CounterModel implements Serializable{
 	
 	/**
 	 * Constructor method that sets the name of the counter.
-	 * @param Name of the counter.
+	 * @param text the String to name the counter.
 	 */
 	public CounterModel(String text) {
 		this.name = text;
@@ -78,6 +78,7 @@ public class CounterModel implements Serializable{
 
 	/**
 	 * Sets the name of the counter.
+	 * @param text the String to use as a name for the counter.
 	 */
 	public void setCounterName(String text) {
 		this.name = text;

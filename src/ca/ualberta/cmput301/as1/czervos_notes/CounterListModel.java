@@ -48,6 +48,7 @@ public class CounterListModel {
 	
 	/**
 	 * Sets the counter list to the argument list.
+	 * @param counterList the list of CounterModels to set this list to.
 	 */
 	public void setCounterList(ArrayList<CounterModel> counterList) {
 		CounterListModel.counterList = counterList;
@@ -55,6 +56,7 @@ public class CounterListModel {
 	
 	/**
 	 * Adds a counter to the counter list.
+	 * @param counter the counter to add to the list.
 	 */
 	public void addCounter(CounterModel counter) {
 		counterList.add(counter);
