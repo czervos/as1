@@ -28,7 +28,9 @@ import android.app.Activity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.support.v4.app.NavUtils;
 import android.annotation.TargetApi;
 import android.content.Intent;
@@ -44,6 +46,7 @@ public class StatsActivity extends Activity {
 	private ArrayList<String> statsList = new ArrayList<String>();
 	private ArrayList<String> statsCountsList = new ArrayList<String>();
 	private ListView statsListView;
+	private TextView statsTitle;
 	private CustomStatsAdapter customStatsAdapter;
 	private ArrayList<LogModel> monthList = new ArrayList<LogModel>();
 	private int lengthTime;
@@ -62,7 +65,8 @@ public class StatsActivity extends Activity {
 		Intent intent = this.getIntent();
 		Bundle bundle = intent.getExtras();
 		counter = (CounterModel) bundle.getSerializable("CounterStats");
-		timeList = counter.getTimeList();
+		timeList = counter.getTimeList(); 
+		// gets list of calendars from counter 
 		
 		/* Month Counters */
 		lengthTime = timeList.size();
@@ -81,7 +85,7 @@ public class StatsActivity extends Activity {
 		}
 		
 		/* Add months to the stats list */
-		statsList.add("Months");
+		statsList.add("Counts Per Month");
 		for (x=0; x < monthList.size(); x++) {
 			statsList.add(monthList.get(x).getMonth());
 		}
@@ -96,6 +100,10 @@ public class StatsActivity extends Activity {
 		statsListView = (ListView) findViewById(R.id.listview_stats_list);
 		customStatsAdapter = new CustomStatsAdapter(this, statsList, statsCountsList);
 		statsListView.setAdapter(customStatsAdapter);
+		
+		/* Sets Statistics Screen Title */
+		statsTitle = (TextView) findViewById(R.id.textview_stats_title);
+		statsTitle.setText(counter.getCounterName() + " Counter Statistics");
 		
 	}
 
