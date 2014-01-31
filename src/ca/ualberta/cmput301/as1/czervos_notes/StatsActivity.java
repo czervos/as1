@@ -16,19 +16,12 @@
 
 package ca.ualberta.cmput301.as1.czervos_notes;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.support.v4.app.NavUtils;
@@ -39,10 +32,6 @@ import android.os.Build;
 public class StatsActivity extends Activity {
 	private CounterModel counter;
 	private ArrayList<Calendar> timeList = new ArrayList<Calendar>();
-	private ArrayList<String> hourList = new ArrayList<String>();
-	private String format;
-	private Map monthHash;
-	private ArrayAdapter<String> adapter;
 	private ArrayList<String> statsList = new ArrayList<String>();
 	private ArrayList<String> statsCountsList = new ArrayList<String>();
 	private ListView statsListView;
@@ -52,16 +41,15 @@ public class StatsActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_stats);
-		// Show the Up button in the action bar.
+		setContentView(R.layout.activity_stats); // Show the Up button in the action bar.
 		setupActionBar();
 		
 		/* Receives bundle */
 		Intent intent = this.getIntent();
 		Bundle bundle = intent.getExtras();
 		counter = (CounterModel) bundle.getSerializable("CounterStats");
-		timeList = counter.getTimeList(); 
-		// gets list of calendars from counter 
+		timeList = counter.getTimeList(); // gets list of calendars from counter 
+		
 		
 		/* Retrieves Counter Statistics from Calendar Data */
 		setMonthStats(timeList);
