@@ -48,11 +48,6 @@ public class StatsActivity extends Activity {
 	private ListView statsListView;
 	private TextView statsTitle;
 	private CustomStatsAdapter customStatsAdapter;
-	private ArrayList<LogModel> monthList = new ArrayList<LogModel>();
-	private int lengthTime;
-	private int x;
-	private int y;
-	private LogModel tempLog;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -68,41 +63,8 @@ public class StatsActivity extends Activity {
 		timeList = counter.getTimeList(); 
 		// gets list of calendars from counter 
 		
-		/* Month Counters */
-		lengthTime = timeList.size();
-		for (x=0; x < lengthTime; x++) {
-			// for every calendar in counterlist
-			tempLog = new LogModel(timeList.get(x));
-			// create a temp log of that calendar
-			for (y=0; y < monthList.size(); y++) {
-				// for every log in the list of logs
-				if (monthList.get(y).getMonth().equals(tempLog.getMonth())) {
-					// if the log = the current calendar info
-					monthList.get(y).increment();
-					// increment the count of the log
-					tempLog = null;
-					// destroy temp log
-					break;
-				}
-			}
-			if (tempLog != null) {
-				// no log found that matches current calendar
-				monthList.add(tempLog);
-				// add current calendar to the log list
-			}
-		}
-		
-		/* Add months to the stats list */
-		statsList.add("Counts Per Month");
-		for (x=0; x < monthList.size(); x++) {
-			statsList.add(monthList.get(x).getMonth());
-		}
-		
-		/* Add month counts to count list */
-		statsCountsList.add(" ");
-		for (x=0; x < monthList.size(); x++) {
-			statsCountsList.add(monthList.get(x).getCount());
-		}
+		setMonthStats(timeList);
+		// retrieves month statistics
 		
 		/* Draws ListView of counts */
 		statsListView = (ListView) findViewById(R.id.listview_stats_list);
@@ -147,6 +109,48 @@ public class StatsActivity extends Activity {
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+	
+	public void setMonthStats(ArrayList<Calendar> timeList) {
+		int len;
+		int x;
+		int y;
+		LogModel tempLog;
+		ArrayList<LogModel> monthList = new ArrayList<LogModel>();
+		
+		len = timeList.size();
+		for (x=0; x < len; x++) {
+			// for every calendar in counterlist
+			tempLog = new LogModel(timeList.get(x));
+			// create a temp log of that calendar
+			for (y=0; y < monthList.size(); y++) {
+				// for every log in the list of logs
+				if (monthList.get(y).getMonth().equals(tempLog.getMonth())) {
+					// if the log = the current calendar info
+					monthList.get(y).increment();
+					// increment the count of the log
+					tempLog = null;
+					// destroy temp log
+					break;
+				}
+			}
+			if (tempLog != null) {
+				// no log found that matches current calendar
+				monthList.add(tempLog);
+				// add current calendar to the log list
+			}
+		}
+		/* Add months to the stats list */
+		statsList.add("Counts Per Month");
+		for (x=0; x < monthList.size(); x++) {
+			statsList.add(monthList.get(x).getMonth());
+		}
+		
+		/* Add month counts to count list */
+		statsCountsList.add(" ");
+		for (x=0; x < monthList.size(); x++) {
+			statsCountsList.add(monthList.get(x).getCount());
+		}
 	}
 }
 
