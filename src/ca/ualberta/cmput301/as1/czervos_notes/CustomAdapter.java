@@ -26,17 +26,17 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 /**
- * Creates a custom adapter for displaying two textviews for each item in 
- * a listview.
+ * Creates a custom adapter for displaying two textviews for each item in a
+ * listview.
  * 
  * CODE REUSE:
  * This code was modified from
- * Author: FabiF
- * URL: http://stackoverflow.com/questions/11106418/how-to-set-adapter-in-case-of-multiple-textviews-per-listview
- * Date: Jan. 25, 2014
- * License: Creative Commons 3.0 Attribution-ShareAlike (http://creativecommons.org/licenses/by-sa/3.0/)
+ * @author FabiF
+ * @URL http://stackoverflow.com/questions/11106418/how-to-set-adapter-in-case-of-multiple-textviews-per-listview
+ * @date Jan. 25, 2014
+ * @license Creative Commons 3.0 Attribution-ShareAlike (http://creativecommons.org/licenses/by-sa/3.0/)
+ *
  */
-
 public class CustomAdapter extends BaseAdapter{
 	
 	private LayoutInflater inflater;
@@ -48,9 +48,9 @@ public class CustomAdapter extends BaseAdapter{
 		TextView textView2;
 	}
 	
-	public CustomAdapter(Context context, CounterListModel counterListModel) {
+	public CustomAdapter(Context context, CounterListModel clModel) {
 		inflater = LayoutInflater.from(context);
-		this.counterListModel = counterListModel;
+		this.counterListModel = clModel;
 	    this.counters = counterListModel.getCounterList();
 	}
 	
