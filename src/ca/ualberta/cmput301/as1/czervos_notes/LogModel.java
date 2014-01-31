@@ -51,6 +51,11 @@ public class LogModel {
 		return monthID;
 	}
 	
+	public String getCount() {
+		String strValue=String.valueOf(count);
+		return strValue;
+	}
+	
 	public void increment(){
 		count++;	
 	}

@@ -41,8 +41,10 @@ public class StatsActivity extends Activity {
 	private String format;
 	private Map monthHash;
 	private ArrayAdapter<String> adapter;
-	private ArrayList<String> stats = new ArrayList<String>();
+	private ArrayList<String> statsList = new ArrayList<String>();
+	private ArrayList<String> statsCountsList = new ArrayList<String>();
 	private ListView statsListView;
+	private CustomStatsAdapter customStatsAdapter;
 	private ArrayList<LogModel> monthList = new ArrayList<LogModel>();
 	private int lengthTime;
 	private int x;
@@ -79,16 +81,21 @@ public class StatsActivity extends Activity {
 		}
 		
 		/* Add months to the stats list */
-		stats.add("Months");
+		statsList.add("Months");
 		for (x=0; x < monthList.size(); x++) {
-			stats.add(monthList.get(x).getMonth());
+			statsList.add(monthList.get(x).getMonth());
 		}
-
-		/* Display Stats List */
-		statsListView = (ListView) findViewById(R.id.listview_stats_list);
-		adapter = new ArrayAdapter(this, R.layout.stats_list_item, stats);
-		statsListView.setAdapter(adapter);
 		
+		/* Add month counts to count list */
+		statsCountsList.add(" ");
+		for (x=0; x < monthList.size(); x++) {
+			statsCountsList.add(monthList.get(x).getCount());
+		}
+		
+		/* Draws ListView of counts */
+		statsListView = (ListView) findViewById(R.id.listview_stats_list);
+		customStatsAdapter = new CustomStatsAdapter(this, statsList, statsCountsList);
+		statsListView.setAdapter(customStatsAdapter);
 		
 	}
 
