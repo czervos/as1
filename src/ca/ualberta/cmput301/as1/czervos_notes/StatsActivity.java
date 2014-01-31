@@ -71,16 +71,24 @@ public class StatsActivity extends Activity {
 		/* Month Counters */
 		lengthTime = timeList.size();
 		for (x=0; x < lengthTime; x++) {
+			// for every calendar in counterlist
 			tempLog = new LogModel(timeList.get(x));
+			// create a temp log of that calendar
 			for (y=0; y < monthList.size(); y++) {
+				// for every log in the list of logs
 				if (monthList.get(y).getMonth().equals(tempLog.getMonth())) {
+					// if the log = the current calendar info
 					monthList.get(y).increment();
+					// increment the count of the log
 					tempLog = null;
+					// destroy temp log
 					break;
 				}
 			}
 			if (tempLog != null) {
+				// no log found that matches current calendar
 				monthList.add(tempLog);
+				// add current calendar to the log list
 			}
 		}
 		

@@ -92,6 +92,7 @@ public class CounterModel implements Serializable{
 	 * This method zeros the counter.
 	 */
 	public void zero() {
+		timeList.clear();
 		this.count = 0;
 	}
 }
