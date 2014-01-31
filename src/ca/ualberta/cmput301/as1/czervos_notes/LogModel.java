@@ -20,7 +20,9 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 /**
- * This class acts as the model for the logs that store timestamp data. 
+ * This class acts as the model for the logs that store timestamp data. Allows
+ * for easier data comparisons when sorting through the counts for statistical
+ * display.
  * @author Costa Zervos
  */
 public class LogModel {

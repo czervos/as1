@@ -19,7 +19,8 @@ package ca.ualberta.cmput301.as1.czervos_notes;
 import java.util.ArrayList;
 
 /**
- * This class acts as the model for the list of counters.
+ * This class acts as the model for the list of counters. Stores the list of 
+ * counters.
  * @author Costa Zervos
  */
 public class CounterListModel {

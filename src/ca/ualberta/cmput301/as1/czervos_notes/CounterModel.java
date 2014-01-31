@@ -21,7 +21,10 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 /**
- * This class acts as the model for the counters.
+ * This class acts as the model for the counters. Stores a counter name and
+ * the counter's count, along with a list of CalendarObjects for each count
+ * for statistical purposes. Class is serializable to allow for bundling and
+ * passing through intents.
  * @author Costa Zervos
  */
 public class CounterModel implements Serializable{
