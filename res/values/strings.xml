@@ -12,5 +12,7 @@
     <string name="counter_rename">Rename Counter</string>
     <string name="title_activity_stats">StatsActivity</string>
     <string name="hello_world">Hello world!</string>
+    <string name="counterlist_tip1">Tap to increment counter.</string>
+    <string name="counterlist_tip2">Tap and hold for counter options.</string>
 
 </resources>
