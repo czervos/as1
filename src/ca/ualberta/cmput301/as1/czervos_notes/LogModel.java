@@ -23,16 +23,16 @@ public class LogModel {
 		month = calendar.get(Calendar.MONTH); // Jan = 0
 		year = calendar.get(Calendar.YEAR);
 		
-		sdf = new SimpleDateFormat("yyyy-MM-dd-hh:00");
+		sdf = new SimpleDateFormat("MMM. dd, yyyy - hh:00 aa");
 		hourID = sdf.format(calendar.getTime());
 		
-		sdf = new SimpleDateFormat("yyyy-MM-dd");
+		sdf = new SimpleDateFormat("MMM. dd, yyyy");
 		dayID = sdf.format(calendar.getTime());
 		
-		sdf = new SimpleDateFormat("yyyy-MM-W");
+		sdf = new SimpleDateFormat("W");
 		weekID = sdf.format(calendar.getTime());
 		
-		sdf = new SimpleDateFormat("yyyy-MM");
+		sdf = new SimpleDateFormat("MMM. yyyy");
 		monthID = sdf.format(calendar.getTime());
 	}
 	public String getHour() {

@@ -63,9 +63,10 @@ public class StatsActivity extends Activity {
 		timeList = counter.getTimeList(); 
 		// gets list of calendars from counter 
 		
+		/* Retrieves Counter Statistics from Calendar Data */
 		setMonthStats(timeList);
-		// retrieves month statistics
 		setDayStats(timeList);
+		setWeekStats(timeList);
 		setHourStats(timeList);
 		
 		/* Draws ListView of counts */
@@ -236,6 +237,48 @@ public class StatsActivity extends Activity {
 		statsCountsList.add(" ");
 		for (x=0; x < hourList.size(); x++) {
 			statsCountsList.add(hourList.get(x).getCount());
+		}
+	}
+	
+	public void setWeekStats(ArrayList<Calendar> timeList) {
+		int len;
+		int x;
+		int y;
+		LogModel tempLog;
+		ArrayList<LogModel> weekList = new ArrayList<LogModel>();
+		
+		len = timeList.size();
+		for (x=0; x < len; x++) {
+			// for every calendar in counterlist
+			tempLog = new LogModel(timeList.get(x));
+			// create a temp log of that calendar
+			for (y=0; y < weekList.size(); y++) {
+				// for every log in the list of logs
+				if (weekList.get(y).getWeek().equals(tempLog.getWeek())) {
+					// if the log = the current calendar info
+					weekList.get(y).increment();
+					// increment the count of the log
+					tempLog = null;
+					// destroy temp log
+					break;
+				}
+			}
+			if (tempLog != null) {
+				// no log found that matches current calendar
+				weekList.add(tempLog);
+				// add current calendar to the log list
+			}
+		}
+		/* Add months to the stats list */
+		statsList.add("Counts Per Week");
+		for (x=0; x < weekList.size(); x++) {
+			statsList.add("Week " + weekList.get(x).getWeek() + " of " + weekList.get(x).getMonth());
+		}
+		
+		/* Add month counts to count list */
+		statsCountsList.add(" ");
+		for (x=0; x < weekList.size(); x++) {
+			statsCountsList.add(weekList.get(x).getCount());
 		}
 	}
 }
