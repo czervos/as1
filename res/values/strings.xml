@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">czervos-notes</string>
+    <string name="app_name">czervos-counter</string>
     <string name="action_settings">Settings</string>
     <string name="counter_add">Add a Counter</string>
-    <string name="title_activity_add_counter">AddCounterActivity</string>
+    <string name="title_activity_add_counter">Add a Counter</string>
     <string name="enter_counter_name">Enter Counter Name</string>
     <string name="enter_name">Enter name</string>
     <string name="counter_sort">Sort Counters Descending</string>
-    <string name="title_activity_rename_counter">RenameCounterActivity</string>
+    <string name="title_activity_rename_counter">Rename Counter</string>
     <string name="counter_rename">Rename Counter</string>
-    <string name="title_activity_stats">StatsActivity</string>
+    <string name="title_activity_stats">Counter Statistics</string>
     <string name="hello_world">Hello world!</string>
     <string name="counterlist_tip1">Tap to increment counter.</string>
     <string name="counterlist_tip2">Tap and hold for counter options.</string>
