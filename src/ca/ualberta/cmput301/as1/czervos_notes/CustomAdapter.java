@@ -44,7 +44,7 @@ public class CustomAdapter extends BaseAdapter{
 	private ArrayList<CounterModel> counters;
 	
 	/**
-	 * Initializes textview objects.
+	 * Initializes textview objects to be added to the ListView.
 	 */
 	private class ViewHolder {
 		TextView textView1;
@@ -54,7 +54,7 @@ public class CustomAdapter extends BaseAdapter{
 	/**
 	 * Constructor that sets the layout inflater, retrieves the counter list,
 	 * and gets the counters from the counter list.
-	 * @param context the context of the activity.
+	 * @param context the layout of the activity.
 	 * @param clModel the CounterListModel object containing counters.
 	 */
 	public CustomAdapter(Context context, CounterListModel clModel) {
