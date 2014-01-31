@@ -134,7 +134,7 @@ public class StatsActivity extends Activity {
 		/* Add months to the stats list */
 		statsList.add("Counts Per Month");
 		for (x=0; x < monthList.size(); x++) {
-			statsList.add(monthList.get(x).getMonth());
+			statsList.add("    " + monthList.get(x).getMonth());
 		}
 		
 		/* Add month counts to count list */
@@ -176,7 +176,7 @@ public class StatsActivity extends Activity {
 		/* Add months to the stats list */
 		statsList.add("Counts Per Day");
 		for (x=0; x < dayList.size(); x++) {
-			statsList.add(dayList.get(x).getDay());
+			statsList.add("    " + dayList.get(x).getDay());
 		}
 		
 		/* Add month counts to count list */
@@ -218,7 +218,7 @@ public class StatsActivity extends Activity {
 		/* Add months to the stats list */
 		statsList.add("Counts Per Hour");
 		for (x=0; x < hourList.size(); x++) {
-			statsList.add(hourList.get(x).getHour());
+			statsList.add("    " + hourList.get(x).getHour());
 		}
 		
 		/* Add month counts to count list */
@@ -260,7 +260,7 @@ public class StatsActivity extends Activity {
 		/* Add months to the stats list */
 		statsList.add("Counts Per Week");
 		for (x=0; x < weekList.size(); x++) {
-			statsList.add("Week " + weekList.get(x).getWeek() + " of " + weekList.get(x).getMonth());
+			statsList.add("    Week " + weekList.get(x).getWeek() + " of " + weekList.get(x).getMonth());
 		}
 		
 		/* Add month counts to count list */
