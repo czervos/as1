@@ -65,6 +65,8 @@ public class StatsActivity extends Activity {
 		
 		setMonthStats(timeList);
 		// retrieves month statistics
+		setDayStats(timeList);
+		setHourStats(timeList);
 		
 		/* Draws ListView of counts */
 		statsListView = (ListView) findViewById(R.id.listview_stats_list);
@@ -150,6 +152,90 @@ public class StatsActivity extends Activity {
 		statsCountsList.add(" ");
 		for (x=0; x < monthList.size(); x++) {
 			statsCountsList.add(monthList.get(x).getCount());
+		}
+	}
+	
+	public void setDayStats(ArrayList<Calendar> timeList) {
+		int len;
+		int x;
+		int y;
+		LogModel tempLog;
+		ArrayList<LogModel> dayList = new ArrayList<LogModel>();
+		
+		len = timeList.size();
+		for (x=0; x < len; x++) {
+			// for every calendar in counterlist
+			tempLog = new LogModel(timeList.get(x));
+			// create a temp log of that calendar
+			for (y=0; y < dayList.size(); y++) {
+				// for every log in the list of logs
+				if (dayList.get(y).getDay().equals(tempLog.getDay())) {
+					// if the log = the current calendar info
+					dayList.get(y).increment();
+					// increment the count of the log
+					tempLog = null;
+					// destroy temp log
+					break;
+				}
+			}
+			if (tempLog != null) {
+				// no log found that matches current calendar
+				dayList.add(tempLog);
+				// add current calendar to the log list
+			}
+		}
+		/* Add months to the stats list */
+		statsList.add("Counts Per Day");
+		for (x=0; x < dayList.size(); x++) {
+			statsList.add(dayList.get(x).getDay());
+		}
+		
+		/* Add month counts to count list */
+		statsCountsList.add(" ");
+		for (x=0; x < dayList.size(); x++) {
+			statsCountsList.add(dayList.get(x).getCount());
+		}
+	}
+	
+	public void setHourStats(ArrayList<Calendar> timeList) {
+		int len;
+		int x;
+		int y;
+		LogModel tempLog;
+		ArrayList<LogModel> hourList = new ArrayList<LogModel>();
+		
+		len = timeList.size();
+		for (x=0; x < len; x++) {
+			// for every calendar in counterlist
+			tempLog = new LogModel(timeList.get(x));
+			// create a temp log of that calendar
+			for (y=0; y < hourList.size(); y++) {
+				// for every log in the list of logs
+				if (hourList.get(y).getHour().equals(tempLog.getHour())) {
+					// if the log = the current calendar info
+					hourList.get(y).increment();
+					// increment the count of the log
+					tempLog = null;
+					// destroy temp log
+					break;
+				}
+			}
+			if (tempLog != null) {
+				// no log found that matches current calendar
+				hourList.add(tempLog);
+				// add current calendar to the log list
+			}
+		}
+		/* Add months to the stats list */
+		statsList.add("Counts Per Hour");
+		for (x=0; x < hourList.size(); x++) {
+			statsList.add(hourList.get(x).getHour());
+		}
+		
+		/* Add month counts to count list */
+		statsCountsList.add(" ");
+		for (x=0; x < hourList.size(); x++) {
+			statsCountsList.add(hourList.get(x).getCount());
 		}
 	}
 }
