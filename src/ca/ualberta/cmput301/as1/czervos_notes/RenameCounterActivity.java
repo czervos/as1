@@ -28,9 +28,9 @@ import android.view.View;
 import android.widget.EditText;
 
 /**
- * 
+ * Allows the user to input a new name for a counter, which will then update
+ * the existing counter with the name.
  * @author Costa Zervos
- *
  */
 public class RenameCounterActivity extends Activity {
 
@@ -77,22 +77,18 @@ public class RenameCounterActivity extends Activity {
 	}
 	
 	/**
-	 * Takes user input to rename counter and sends back name in bundle
-	 * 
+	 * Takes user's input name and converts it to a string, then bundles it
+	 * to send back to the main activity (CounterListActivity).
 	 * @param view
 	 */
 	public void renameCounter(View view) {
 		EditText editText = (EditText) findViewById(R.id.enter_counter_name);
-		// Identifies edit text resource
+		// Gets name input from edittext & converts to string
 		String counterName = editText.getText().toString();
-		// Gets name input from edit text resource & converts to string
 		Intent intent = new Intent(this, CounterListActivity.class);
 		Bundle bundle = new Bundle();
 		bundle.putSerializable("renameCounter", counterName);
-		// packages bundle with new name into intent
 		intent.putExtras(bundle);
 		startActivity(intent);
-		
 	}
-
 }
