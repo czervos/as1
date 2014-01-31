@@ -34,8 +34,8 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 /**
- * The main activity of the application.
- * 
+ * The main activity of the application. Acts as a hub to all other activities
+ * and maintains the counter list.
  * @author Costa Zervos
  */
 public class CounterListActivity extends Activity {
@@ -60,112 +60,111 @@ public class CounterListActivity extends Activity {
 	}
 	
 	/**
-	 * Creates context menu for longclicks.
+	 * Creates a context menu when the user long clicks an item in the list
+	 * view. Note: for this to work the listview must be enabled to register
+	 * long clicks - this is found in onResume under the "Display List of
+	 * Counters" section.
 	 * 
 	 * CODE REUSE:
 	 * This code was modified from
-	 * Author: Mike Plate
-	 * URL: http://www.mikeplate.com/2010/01/21/show-a-context-menu-for-long-clicks-in-an-android-listview/
-	 * Date: Jan. 26, 2014
-	 * License: No license
+	 * @author Mike Plate
+	 * @URL http://www.mikeplate.com/2010/01/21/show-a-context-menu-for-long-clicks-in-an-android-listview/
+	 * @date Jan. 26, 2014
+	 * @license No license
 	 */
 	@Override
 	public void onCreateContextMenu(ContextMenu menu, View view, 
 			ContextMenuInfo menuInfo) {
-		// NOTE: needed to enable listview to register longclicks - code in
-		// onResume()
+		// If the view that trigger the longclick is the counter listview
 		if (view.getId() == R.id.counterList) {
-			// If the view that trigger the longclick is the counter listview
+			// Casts listview item selected info into format readable by adapter
 			AdapterView.AdapterContextMenuInfo info = (AdapterView
 					.AdapterContextMenuInfo) menuInfo;
-			// Casts listview item selected info into format readable by adapter
-			ArrayList<CounterModel> tempList = counterList.getCounterList();
 			// Gets counter list from counter list model
-			menu.setHeaderTitle(tempList.get(info.position).getCounterName());
+			ArrayList<CounterModel> tempList = counterList.getCounterList();
 			// Grabs name of counter selected using the info
+			menu.setHeaderTitle(tempList.get(info.position).getCounterName());
+			// displays the context menu items
 			for (int i = 0; i < menuItems.length; i++) {
 				menu.add(Menu.NONE, i, i, menuItems[i]);
-				// displays the context menu items
-				}
+			}
 		}
 	}
 	
+	/**
+	 * Retrieves and processes intents and bundles, loads and saves data,
+	 * displays the list view, and listens for button presses.
+	 */
 	@Override
 	protected void onResume() {
 		super.onResume();
 		CounterModel newCounter;
 		String newName;
-		// Defines a new counter
 		
+		
+		/* Sets Up Counter List */
 		counterList = loadCounterList();
-		
 		if (counterList == null){
 			counterList = new CounterListModel();
 		}
 		
+		
 		/* Retrieves Intents and Bundles */
 		Intent intent = this.getIntent();
-		// Gets the intent
 		Bundle bundle = intent.getExtras();
-		// Gets the bundle form the intent
+		// If bundle wasn't empty, need to figure out what type of bundle it is
 		if (bundle != null) {
-			// If bundle is not empty
+			// Attempts to get a new counter bundle
 			newCounter = (CounterModel) bundle.getSerializable("newCounter");
-			// Gets the new counter from the bundle
+			// If there is no new counter bundle, bundle must be a rename bundle
 			if (newCounter == null) {
-				// If new counter is null, bundle is a rename string
+				// Gets the new name
 				newName = (String) bundle.getSerializable("renameCounter");
-				// Retrieves new name
+				// Copies counter list
 				ArrayList<CounterModel> tempList = counterList.getCounterList();
-				// Gets list of counters
+				// Changes the name of the counter in the copied list
 				tempList.get(renamePosition).setCounterName(newName);
-				// Changes the name of the counter
+				// Sets list to copied list containing renamed counter
 				counterList.setCounterList(tempList);
-				// Sets counter list model to the updated set of counters
-				intent.removeExtra("renameCounter");
 				// Removes the bundle when done with it
+				intent.removeExtra("renameCounter");
 			}
+			// Definitely a new counter bundle
 			else {
 				counterList.addCounter(newCounter);
-				// Adds the counter to the list
 				intent.removeExtra("newCounter");
-				// Removes the bundle when done with it
 			}
 			saveCounterList(counterList);
-			// Saves the list
-
 		}
+		
 		
 		/* Displays List of Counters */
 		counterListView = (ListView) findViewById(R.id.counterList);
-		// Associates variable with listview resource (view)
 		customAdapter = new CustomAdapter(this,counterList);
-		// Initializes custom adapter (utilizing two textviews)
+		// Draws listview with custom adapter
 		counterListView.setAdapter(customAdapter);
-		// Draws listview
-		registerForContextMenu(counterListView);
 		// Enables listview to register longclicks for context menu
+		registerForContextMenu(counterListView);
+
 		
-		/**
-		 * Listens for listview clicks.
-		 */
+		/* Listens and Processes listview clicks */
 		counterListView.setOnItemClickListener(new AdapterView.
 				OnItemClickListener() {
+			/**
+			 * Acts upon a clicked item in the list view.
+			 */
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, 
 					int position, long id) {
-				
+				// Grabs a copy of the list of counters
 				ArrayList<CounterModel> tempList = counterList.getCounterList();
-				// Gets list of counters
+				// Increments count value of clicked counter in copied list
 				tempList.get(position).increment();
-				// Increments clicked counter by using position of list item
-				// clicked which = array position
+				// Sets the copied list w/ updated count as the actual list
 				counterList.setCounterList(tempList);
-				// Sets the CounterListModel to the updated list
 				saveCounterList(counterList);
-				// Saves the list
+				// Redraws the list with updated values
 				customAdapter.notifyDataSetChanged();
-				// Re-draws the list
 			}
 		});
 	}
@@ -175,29 +174,30 @@ public class CounterListActivity extends Activity {
 	 * 
 	 * CODE REUSE:
 	 * This code was modified from
-	 * URL: http://developer.android.com/training/basics/actionbar/adding-buttons.html#Respond
-	 * Date: Jan. 24, 2014
-	 * License: Creative Commons 2.5 Attribution License (http://creativecommons.org/licenses/by/2.5/)
+	 * @author Android Developer Training
+	 * @URL http://developer.android.com/training/basics/actionbar/adding-buttons.html#Respond
+	 * @date Jan. 24, 2014
+	 * @license Creative Commons 2.5 Attribution License (http://creativecommons.org/licenses/by/2.5/)
 	 */
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-	    // Handle presses on the action bar items
 	    switch (item.getItemId()) {
+	    	// Add counter
 	        case R.id.counter_add:
-	        	// Handles pressing add counter button
 	            Intent intent = new Intent(this, AddCounterActivity.class);
 	            startActivity(intent);
 	            return true;
+	        // Sort counters
 	        case R.id.counter_sort:
-	        	// Handles counter sort button press
 	        	ArrayList<CounterModel> tempList = counterList.getCounterList();
+	        	// Sorts the list of counters
 	        	tempList = sort(tempList);
 	        	counterList.setCounterList(tempList);
 	    		saveCounterList(counterList);
-	    		// Saves list
+	    		// Updates adapter after sorting
 	    		customAdapter.notifyDataSetChanged();
-	    		// Updates adapter
 	        	return true;
+	        // Settings (found in overflow - unimplemented)
 	        case R.id.action_settings:
 	            return true;
 	        default:
@@ -206,59 +206,49 @@ public class CounterListActivity extends Activity {
 	}
 	
 	/**
-	 * Method takes in the counter list model, and saves the counters in the 
-	 * counter list.
-	 * 
-	 * @param counterListModel
+	 * Saves the list of counters from the counter list model.
+	 * @param counterListModel the list of counter models
 	 */
 	public void saveCounterList(CounterListModel counterListModel) {
 		ArrayList<CounterModel> counterList = new ArrayList<CounterModel>();
-		// initializes an array to store counters
 		counterList = counterListModel.getCounterList();
-		// gets the list of counters from the counterListModel
+		// Initialize GSON
 		Gson gson = new Gson();
-		// initializes gson
+		// Converts list of counters to a JSON string object
 		String json = gson.toJson(counterList);
-		// converts list of counters to a JSON string object
 		
-		
+		// Initializes shared preferences
 		SharedPreferences savedList = getPreferences(MODE_PRIVATE);
-		// initializes shared preferences
+		// Initializes shared preferences editor
 		SharedPreferences.Editor editor = savedList.edit();
-		// initializes shared preferences editor
+		// Saves the JSON string object as "savedList"
 		editor.putString("savedList",json);
-		// saves the JSON string object as "savedList"
+		// Commits the save
 		editor.commit();
-		// commits the save to shared preferences
 	}
 	
 	/**
-	 * Method loads the stored array list and returns the counterListModel
+	 * Loads the stored array list and returns the counterListModel
 	 * with the loaded counters. If there is nothing saved, returns null.
-	 * 
-	 * @return
+	 * @return counterListModel containing counters OR null
 	 */
 	public CounterListModel loadCounterList() {
 		Gson gson = new Gson();
-		// initializes gson
 		CounterListModel counterListModel = new CounterListModel();
-		// initializes counter list model
 		SharedPreferences savedList = getPreferences(MODE_PRIVATE);
-		// initializes shared preferences
+		// Loads the JSON string object saved as "savedList" and returns
+		// "noValue" if no JSON string object located 
 		String json = savedList.getString("savedList","noValue");
-		// loads the JSON string object saved as "savedList"
-		// returns "noValue" if no JSON string object located 
 		if (json == "noValue") {
 			return null;
-			// method returns null if no JSON string object was located
 		}
 		
-		java.lang.reflect.Type collectionType = new TypeToken<ArrayList<CounterModel>>(){}.getType();
 		// Sets collection type to ArrayList<CounterModel>
+		java.lang.reflect.Type collectionType = new TypeToken<ArrayList<CounterModel>>(){}.getType();
+		// Converts JSON string object to ArrayList<CounterModel>
 		ArrayList<CounterModel> loadedList = gson.fromJson(json, collectionType);
-		// converts JSON string object to ArrayList<CounterModel>
+		// Puts loaded list into the counter list model
 		counterListModel.setCounterList(loadedList);
-		// sets counter list in model to the loaded list
 		return counterListModel;		
 	}
 	
@@ -267,34 +257,34 @@ public class CounterListActivity extends Activity {
 	 * 
 	 * CODE REUSE:
 	 * This code was modified from
-	 * Author: Mike Plate
-	 * URL: http://www.mikeplate.com/2010/01/21/show-a-context-menu-for-long-clicks-in-an-android-listview/
-	 * Date: Jan. 26, 2014
-	 * License: No license
+	 * @author Mike Plate
+	 * @URL http://www.mikeplate.com/2010/01/21/show-a-context-menu-for-long-clicks-in-an-android-listview/
+	 * @date Jan. 26, 2014
+	 * @license No license
 	 */
 	@Override
 	public boolean onContextItemSelected(MenuItem item) {
+		// Casts contextmenu item selected info into format readable by adapter
 		AdapterView.AdapterContextMenuInfo info = (AdapterView
 				.AdapterContextMenuInfo)item.getMenuInfo();
-		// Casts contextmenu item selected info into format readable by adapter
-		int menuItemIndex = item.getItemId();
 		// Gets id of context menu item selected
+		int menuItemIndex = item.getItemId();
 		ArrayList<CounterModel> tempList = counterList.getCounterList();
-		// Gets list of counters
 		
 		switch(menuItemIndex) {
 		case 0:
 			// Stats
 			Intent intent1 = new Intent(this, StatsActivity.class);
 			Bundle bundle = new Bundle();
+			// Bundles counter selected for statistics display
 			bundle.putSerializable("CounterStats", tempList.get(info.position));
 			intent1.putExtras(bundle);
 			startActivity(intent1);
 			break;
 		case 1:
 			// Rename
-			renamePosition = info.position;
 			// Remembers position of counter being renamed
+			renamePosition = info.position;
 			Intent intent2 = new Intent(this, RenameCounterActivity.class);
 			startActivity(intent2);
 			break;
@@ -307,20 +297,18 @@ public class CounterListActivity extends Activity {
 			tempList.remove(info.position);
 			break;
 		}
+		// Sets the list in CounterListModel to the updated list
 		counterList.setCounterList(tempList);
-		// Sets the CounterListModel to the updated list 
 		saveCounterList(counterList);
-		// Saves list
-		customAdapter.notifyDataSetChanged();
 		// Updates adapter
+		customAdapter.notifyDataSetChanged();
 		return true;
 	}
 	
 	/**
-	 * Selection sort algorithm.
-	 * 
-	 * @param array
-	 * @return
+	 * Selection sort algorithm to sort an array of counters.
+	 * @param array the list of counter models.
+	 * @return the array of counters.
 	 */
 	public ArrayList<CounterModel> sort(ArrayList<CounterModel> array) {
 		

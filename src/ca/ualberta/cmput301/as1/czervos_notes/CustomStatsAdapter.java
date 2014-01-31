@@ -35,7 +35,6 @@ import android.widget.TextView;
  * @URL http://stackoverflow.com/questions/11106418/how-to-set-adapter-in-case-of-multiple-textviews-per-listview
  * @date Jan. 25, 2014
  * @license Creative Commons 3.0 Attribution-ShareAlike (http://creativecommons.org/licenses/by-sa/3.0/)
- *
  */
 public class CustomStatsAdapter extends BaseAdapter {
 	
