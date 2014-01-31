@@ -19,6 +19,10 @@ package ca.ualberta.cmput301.as1.czervos_notes;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
+/**
+ * This class acts as the model for the logs that store timestamp data. 
+ * @author Costa Zervos
+ */
 public class LogModel {
 	private int count = 1;
 	private String hourID;
@@ -31,7 +35,7 @@ public class LogModel {
 	 * Constructor takes in a calendar object and parses the data into 
 	 * month, week, day, and hour data.
 	 * 
-	 * @param calendar
+	 * @param calendar object to parse info from.
 	 */
 	public LogModel(Calendar calendar) {
 		sdf = new SimpleDateFormat("MMM. dd, yyyy - hh:00 aa");
@@ -92,6 +96,9 @@ public class LogModel {
 	
 	// Setters
 	
+	/**
+	 * Increments the count of this log.
+	 */
 	public void increment(){
 		count++;	
 	}

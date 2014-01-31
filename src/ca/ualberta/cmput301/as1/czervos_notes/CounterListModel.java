@@ -19,16 +19,16 @@ package ca.ualberta.cmput301.as1.czervos_notes;
 import java.util.ArrayList;
 
 /**
- * This class acts as the model for the counter list.
- * 
+ * This class acts as the model for the list of counters.
  * @author Costa Zervos
  */
 public class CounterListModel {
 	
 	private static ArrayList<CounterModel> counterList;
 	
-	// Constructor
-	
+	/**
+	 * Constructor that creates a new array of CounterModels.
+	 */
 	public CounterListModel() {
 		super();
 		counterList = new ArrayList<CounterModel>();
@@ -38,8 +38,7 @@ public class CounterListModel {
 	
 	/**
 	 * Returns the list of counters.
-	 * 
-	 * @return
+	 * @return List of CounterModels.
 	 */
 	public ArrayList<CounterModel> getCounterList() {
 		return counterList;
@@ -49,17 +48,13 @@ public class CounterListModel {
 	
 	/**
 	 * Sets the counter list to the argument list.
-	 * 
-	 * @param counterList
 	 */
 	public void setCounterList(ArrayList<CounterModel> counterList) {
 		CounterListModel.counterList = counterList;
 	}
 	
 	/**
-	 * Adds a counter to the counter list
-	 * 
-	 * @param counter
+	 * Adds a counter to the counter list.
 	 */
 	public void addCounter(CounterModel counter) {
 		counterList.add(counter);

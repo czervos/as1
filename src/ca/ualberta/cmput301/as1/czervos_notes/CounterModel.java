@@ -22,7 +22,6 @@ import java.util.Calendar;
 
 /**
  * This class acts as the model for the counters.
- * 
  * @author Costa Zervos
  */
 public class CounterModel implements Serializable{
@@ -32,8 +31,10 @@ public class CounterModel implements Serializable{
 	private ArrayList<Calendar> timeList = new ArrayList<Calendar>();
 	private static final long serialVersionUID = 1L;
 	
-	// Constructor
-	
+	/**
+	 * Constructor method that sets the name of the counter.
+	 * @param Name of the counter.
+	 */
 	public CounterModel(String text) {
 		this.name = text;
 	}
@@ -42,8 +43,7 @@ public class CounterModel implements Serializable{
 	
 	/**
 	 * Returns the value of the count.
-	 * 
-	 * @return count
+	 * @return Count value.
 	 */
 	public Integer getCount() {
 		return this.count;
@@ -51,8 +51,7 @@ public class CounterModel implements Serializable{
 	
 	/**
 	 * Returns the name of the counter.
-	 * 
-	 * @return
+	 * @return Counter name.
 	 */
 	public String getCounterName() {
 		return this.name;
@@ -60,8 +59,7 @@ public class CounterModel implements Serializable{
 	
 	/**
 	 * Returns the list of timestamps.
-	 * 
-	 * @return
+	 * @return Array of calendar objects.
 	 */
 	public ArrayList<Calendar> getTimeList() {
 		return timeList;
@@ -70,26 +68,23 @@ public class CounterModel implements Serializable{
 	// Setters
 	
 	/**
-	 * This method increments the counter and adds a timestamp to the timelist.
-	 * 
-	 * @param count
+	 * Increments the counter and adds a timestamp to the timelist.
 	 */
 	public void increment() {
 		this.count++;
 		this.timeList.add(Calendar.getInstance());
 	}
 	
+
 	/**
-	 * This method sets the name of the counter.
-	 * 
-	 * @param text
+	 * Sets the name of the counter.
 	 */
 	public void setCounterName(String text) {
 		this.name = text;
 	}
 	
 	/**
-	 * This method zeros the counter.
+	 * Resets the counter value
 	 */
 	public void zero() {
 		timeList.clear();

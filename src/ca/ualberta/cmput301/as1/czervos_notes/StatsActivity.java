@@ -53,8 +53,8 @@ public class StatsActivity extends Activity {
 		
 		/* Retrieves Counter Statistics from Calendar Data */
 		setMonthStats(timeList);
-		setDayStats(timeList);
 		setWeekStats(timeList);
+		setDayStats(timeList);
 		setHourStats(timeList);
 		
 		/* Draws ListView of counts */
