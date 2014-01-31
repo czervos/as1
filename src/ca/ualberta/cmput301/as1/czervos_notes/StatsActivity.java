@@ -29,6 +29,11 @@ import android.annotation.TargetApi;
 import android.content.Intent;
 import android.os.Build;
 
+/**
+ * Displays the counter statistics. Retrieves a counter's data and parses that
+ * data into useful information to be displayed to the user.
+ * @author Costa Zervos
+ */
 public class StatsActivity extends Activity {
 	private CounterModel counter;
 	private ArrayList<Calendar> timeList = new ArrayList<Calendar>();
@@ -38,6 +43,9 @@ public class StatsActivity extends Activity {
 	private TextView statsTitle;
 	private CustomStatsAdapter customStatsAdapter;
 
+	/**
+	 * Processes data in received bundle then displays it.
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -48,7 +56,8 @@ public class StatsActivity extends Activity {
 		Intent intent = this.getIntent();
 		Bundle bundle = intent.getExtras();
 		counter = (CounterModel) bundle.getSerializable("CounterStats");
-		timeList = counter.getTimeList(); // gets list of calendars from counter 
+		// Gets list of calendars from counter 
+		timeList = counter.getTimeList();
 		
 		
 		/* Retrieves Counter Statistics from Calendar Data */
@@ -59,7 +68,9 @@ public class StatsActivity extends Activity {
 		
 		/* Draws ListView of counts */
 		statsListView = (ListView) findViewById(R.id.listview_stats_list);
-		customStatsAdapter = new CustomStatsAdapter(this, statsList, statsCountsList);
+		customStatsAdapter = new CustomStatsAdapter(this, statsList, 
+				statsCountsList);
+		// Draws ListView using custom adapter
 		statsListView.setAdapter(customStatsAdapter);
 		
 		/* Sets Statistics Screen Title */
@@ -102,6 +113,15 @@ public class StatsActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 	
+	/**
+	 * Takes in a list of calendar objects and iterates through the list,
+	 * converting each into a LogModel object for easier sorting. It then sorts 
+	 * them into groups by months (taking into account the year as well). Then
+	 * adds the date and count info to the date string and count string that
+	 * the adapter uses to put into the two textviews that are displayed in
+	 * each ListView item. 
+	 * @param timeList the list of calendars for the current counter.
+	 */
 	public void setMonthStats(ArrayList<Calendar> timeList) {
 		int len;
 		int x;
@@ -111,39 +131,51 @@ public class StatsActivity extends Activity {
 		
 		len = timeList.size();
 		for (x=0; x < len; x++) {
-			// for every calendar in counterlist
+			// For every calendar in counterlist, convert to a LogModel object
 			tempLog = new LogModel(timeList.get(x));
-			// create a temp log of that calendar
+			// For every LogModel in the list of logs
 			for (y=0; y < monthList.size(); y++) {
-				// for every log in the list of logs
+				// If log in the list == current log's info, increment log count
 				if (monthList.get(y).getMonth().equals(tempLog.getMonth())) {
-					// if the log = the current calendar info
 					monthList.get(y).increment();
-					// increment the count of the log
+					// Get rid of current log since its already in the list
 					tempLog = null;
-					// destroy temp log
+					// Stop iterating through the list of logs
 					break;
 				}
 			}
+			// If current log did not match with a log in the list
 			if (tempLog != null) {
-				// no log found that matches current calendar
+				// Add log to the log list
 				monthList.add(tempLog);
-				// add current calendar to the log list
 			}
 		}
-		/* Add months to the stats list */
+		/* Add Month Data to the Stats List */
+		// Create month list header
 		statsList.add("Counts Per Month");
 		for (x=0; x < monthList.size(); x++) {
+			// Pulls month data from every log in log list
 			statsList.add("    " + monthList.get(x).getMonth());
 		}
 		
-		/* Add month counts to count list */
+		/* Add Month Counts to Count List */
+		// First entry corresponds to month title thus leave empty
 		statsCountsList.add(" ");
 		for (x=0; x < monthList.size(); x++) {
+			// Pulls month data from every log in log list
 			statsCountsList.add(monthList.get(x).getCount());
 		}
 	}
 	
+	/**
+	 * Takes in a list of calendar objects and iterates through the list,
+	 * converting each into a LogModel object for easier sorting. It then sorts 
+	 * them into groups by days (taking into account the year & month as well). 
+	 * Then adds the date and count info to the date string and count string 
+	 * that the adapter uses to put into the two textviews that are displayed in
+	 * each ListView item. 
+	 * @param timeList the list of calendars for the current counter.
+	 */
 	public void setDayStats(ArrayList<Calendar> timeList) {
 		int len;
 		int x;
@@ -153,39 +185,39 @@ public class StatsActivity extends Activity {
 		
 		len = timeList.size();
 		for (x=0; x < len; x++) {
-			// for every calendar in counterlist
 			tempLog = new LogModel(timeList.get(x));
-			// create a temp log of that calendar
 			for (y=0; y < dayList.size(); y++) {
-				// for every log in the list of logs
 				if (dayList.get(y).getDay().equals(tempLog.getDay())) {
-					// if the log = the current calendar info
 					dayList.get(y).increment();
-					// increment the count of the log
 					tempLog = null;
-					// destroy temp log
 					break;
 				}
 			}
 			if (tempLog != null) {
-				// no log found that matches current calendar
 				dayList.add(tempLog);
-				// add current calendar to the log list
 			}
 		}
-		/* Add months to the stats list */
+
 		statsList.add("Counts Per Day");
 		for (x=0; x < dayList.size(); x++) {
 			statsList.add("    " + dayList.get(x).getDay());
 		}
 		
-		/* Add month counts to count list */
 		statsCountsList.add(" ");
 		for (x=0; x < dayList.size(); x++) {
 			statsCountsList.add(dayList.get(x).getCount());
 		}
 	}
 	
+	/**
+	 * Takes in a list of calendar objects and iterates through the list,
+	 * converting each into a LogModel object for easier sorting. It then sorts 
+	 * them into groups by hours (taking into account the year, month, & day as 
+	 * well). Then adds the date and count info to the date string and count 
+	 * string that the adapter uses to put into the two textviews that are 
+	 * displayed in each ListView item. 
+	 * @param timeList the list of calendars for the current counter.
+	 */
 	public void setHourStats(ArrayList<Calendar> timeList) {
 		int len;
 		int x;
@@ -195,39 +227,39 @@ public class StatsActivity extends Activity {
 		
 		len = timeList.size();
 		for (x=0; x < len; x++) {
-			// for every calendar in counterlist
 			tempLog = new LogModel(timeList.get(x));
-			// create a temp log of that calendar
 			for (y=0; y < hourList.size(); y++) {
-				// for every log in the list of logs
 				if (hourList.get(y).getHour().equals(tempLog.getHour())) {
-					// if the log = the current calendar info
 					hourList.get(y).increment();
-					// increment the count of the log
 					tempLog = null;
-					// destroy temp log
 					break;
 				}
 			}
 			if (tempLog != null) {
-				// no log found that matches current calendar
 				hourList.add(tempLog);
-				// add current calendar to the log list
 			}
 		}
-		/* Add months to the stats list */
+
 		statsList.add("Counts Per Hour");
 		for (x=0; x < hourList.size(); x++) {
 			statsList.add("    " + hourList.get(x).getHour());
 		}
 		
-		/* Add month counts to count list */
 		statsCountsList.add(" ");
 		for (x=0; x < hourList.size(); x++) {
 			statsCountsList.add(hourList.get(x).getCount());
 		}
 	}
 	
+	/**
+	 * Takes in a list of calendar objects and iterates through the list,
+	 * converting each into a LogModel object for easier sorting. It then sorts 
+	 * them into groups by weeks (taking into account the year & month as well). 
+	 * Then adds the date and count info to the date string and count string 
+	 * that the adapter uses to put into the two textviews that are displayed in
+	 * each ListView item. 
+	 * @param timeList the list of calendars for the current counter.
+	 */
 	public void setWeekStats(ArrayList<Calendar> timeList) {
 		int len;
 		int x;
@@ -237,54 +269,27 @@ public class StatsActivity extends Activity {
 		
 		len = timeList.size();
 		for (x=0; x < len; x++) {
-			// for every calendar in counterlist
 			tempLog = new LogModel(timeList.get(x));
-			// create a temp log of that calendar
 			for (y=0; y < weekList.size(); y++) {
-				// for every log in the list of logs
 				if (weekList.get(y).getWeek().equals(tempLog.getWeek())) {
-					// if the log = the current calendar info
 					weekList.get(y).increment();
-					// increment the count of the log
 					tempLog = null;
-					// destroy temp log
 					break;
 				}
 			}
 			if (tempLog != null) {
-				// no log found that matches current calendar
 				weekList.add(tempLog);
-				// add current calendar to the log list
 			}
 		}
-		/* Add months to the stats list */
+
 		statsList.add("Counts Per Week");
 		for (x=0; x < weekList.size(); x++) {
 			statsList.add("    Week " + weekList.get(x).getWeek() + " of " + weekList.get(x).getMonth());
 		}
 		
-		/* Add month counts to count list */
 		statsCountsList.add(" ");
 		for (x=0; x < weekList.size(); x++) {
 			statsCountsList.add(weekList.get(x).getCount());
 		}
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

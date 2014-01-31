@@ -27,6 +27,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 
+/**
+ * 
+ * @author Costa Zervos
+ *
+ */
 public class RenameCounterActivity extends Activity {
 
 	@Override

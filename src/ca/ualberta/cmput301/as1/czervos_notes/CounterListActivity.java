@@ -34,8 +34,8 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 /**
- * The main activity of the application. Acts as a hub to all other activities
- * and maintains the counter list.
+ * The main activity of the application. Acts as a hub to all other activities,
+ * maintains the counter list, and saves/loads the data.
  * @author Costa Zervos
  */
 public class CounterListActivity extends Activity {
@@ -244,9 +244,11 @@ public class CounterListActivity extends Activity {
 		}
 		
 		// Sets collection type to ArrayList<CounterModel>
-		java.lang.reflect.Type collectionType = new TypeToken<ArrayList<CounterModel>>(){}.getType();
+		java.lang.reflect.Type collectionType = new 
+				TypeToken<ArrayList<CounterModel>>(){}.getType();
 		// Converts JSON string object to ArrayList<CounterModel>
-		ArrayList<CounterModel> loadedList = gson.fromJson(json, collectionType);
+		ArrayList<CounterModel> loadedList = gson.
+				fromJson(json, collectionType);
 		// Puts loaded list into the counter list model
 		counterListModel.setCounterList(loadedList);
 		return counterListModel;		

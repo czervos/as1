@@ -28,8 +28,8 @@ import android.content.Intent;
 import android.os.Build;
 
 /**
- * Activity that allows user to create a new counter
- * 
+ * Activity that allows user to create a new counter. Allows user to input
+ * the name of a new counter and then add it to the list of counters.
  * @author Costa Zervos
  */
 public class AddCounterActivity extends Activity {
@@ -77,28 +77,21 @@ public class AddCounterActivity extends Activity {
 	}
 	
 	/**
-	 * Called when the user clicks on the add a counter button.
-	 * 
+	 * Creates a counter using the name input by the user and bundles the
+	 * counter to send back to the main activity (CounterListActivity).
 	 * @param view
 	 */
 	public void createCounter(View view) {
 		CounterModel newCounter;
 		EditText editText = (EditText) findViewById(R.id.enter_counter_name);
-		// Finds EditText view and gets its ID
+		// Retrieves EditText's text input and converts to a string
 		String counterName = editText.getText().toString();
-		// Using EditText view's id, grabs the text & converts to string
 		newCounter = new CounterModel(counterName);
-		// Constructs new counter
 		Intent intent = new Intent(this, CounterListActivity.class);
-		// Creates intent to return to main activity
 		Bundle bundle = new Bundle();
-		// Defines a bundle to pass to main activity
-		bundle.putSerializable("newCounter",newCounter);
 		// Bundles newly created counter
+		bundle.putSerializable("newCounter",newCounter);
 		intent.putExtras(bundle);
-		// Puts bundle in intent
-		startActivity(intent);
-		// Returns to main activity		
+		startActivity(intent);	
 	}
-
 }
